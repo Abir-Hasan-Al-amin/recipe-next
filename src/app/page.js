@@ -15,6 +15,7 @@ export default function Home() {
   const router = useRouter();
   const [filteredRecipes, setFilteredRecipes] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  //  logout user
   const logout = () => {
     signOut(auth)
       .then(() => {
@@ -25,6 +26,7 @@ export default function Home() {
         console.error(error);
       });
   };
+  // Delete functionality for recipe
   const handleDeleteRecipe = async (recipeId, recipeCode, recipeImg) => {
     const recipeDocRef = doc(db, `users/${user.uid}/recipes`, recipeId);
     await deleteDoc(recipeDocRef);
@@ -43,7 +45,7 @@ export default function Home() {
     );
     setFilteredRecipes(updatedRecipes);
   };
-
+// fetching data of recipes from firestore
   useEffect(() => {
     if (!loading && !user) {
       router.push("/signin");
@@ -70,6 +72,7 @@ export default function Home() {
     }
   }, [user, loading, router]);
 
+  // for flittering via ingredients and title
   useEffect(() => {
     const filtered = recipes.filter(
       (recipe) =>
@@ -80,7 +83,7 @@ export default function Home() {
     );
     setFilteredRecipes(filtered);
   }, [searchTerm, recipes]);
-
+ // waiting for authenticate user 
   if (loading) {
     return <p>Loading...</p>;
   }

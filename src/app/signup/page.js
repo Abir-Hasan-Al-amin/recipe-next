@@ -7,7 +7,6 @@ export default function page() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [conPassword, setConPassword] = useState("");
-  console.log(auth?.currentUser?.email);
   const register = () => {
     if (password === conPassword) {
       createUserWithEmailAndPassword(auth, email, password)
@@ -34,7 +33,7 @@ export default function page() {
           }
         });
     } else {
-      alert("password Doesn't match or Name is Empty");
+      alert("password Doesn't match or Email is Empty");
     }
   };
   return (

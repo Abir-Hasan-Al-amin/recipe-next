@@ -10,11 +10,13 @@ export default function Recipe({ params }) {
   const [recipe, setRecipe] = useState(null);
   const { id } = params;
   const router = useRouter();
+  // Checking if the user is logged in or not
   useEffect(() => {
     if (!loading && !user) {
       router.push("/signin");
     }
   }, [user, router]);
+  // data fetching from firestore
   useEffect(() => {
     const fetchRecipeData = async () => {
       if (user) {

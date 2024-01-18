@@ -17,9 +17,11 @@ export default function Recipe({ params }) {
   const [recipe, setRecipe] = useState(null);
   const { id } = params;
   const router = useRouter();
+  // default image link
   const dImg =
     "https://firebasestorage.googleapis.com/v0/b/recipeapp-nextjs-assigentment.appspot.com/o/users%2Fdefault%2Fhd-recipes-mobile-image-750x352px.webp?alt=media&token=f6caccc2-2c7a-47e5-8efe-887f8bedd2f9";
-  const handleBox = (e, ingredientVal) => {
+  // CheckBox data store
+    const handleBox = (e, ingredientVal) => {
     const { checked } = e.target;
     if (checked) {
       setCheckedValues((prev) => [...prev, ingredientVal]);
@@ -27,11 +29,13 @@ export default function Recipe({ params }) {
       setCheckedValues((prev) => prev.filter((id) => id !== ingredientVal));
     }
   };
+   // Checking if the user is logged in or not
   useEffect(() => {
     if (!loading && !user) {
       router.push("/signin");
     }
   }, [user, router]);
+  // update values in firestore and storage and values checking
   const handleUpdate = async () => {
     if (user && recipe) {
       if (title === "" || checkedValues.length === 0 || instructions === "") {
@@ -70,6 +74,7 @@ export default function Recipe({ params }) {
       }
     }
   };
+  // Recipe data fetching from firestore
   useEffect(() => {
     const fetchRecipeData = async () => {
       if (user) {
@@ -95,9 +100,6 @@ export default function Recipe({ params }) {
     };
     fetchRecipeData();
   }, [id, user]);
-  if (recipe) {
-    console.log(title, checkedValues, instructions);
-  }
   return (
     <div className="flex pt-10 flex-col items-center bg-[#161925] text-[#FDFFFC] min-h-screen">
       <div className="py-6 text-3xl font-bold">Update Recipe</div>

@@ -7,11 +7,8 @@ import { useRouter } from "next/navigation";
 
 export default function SignInPage() {
   const router = useRouter();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  console.log(auth?.currentUser?.email);
 
   const logIn = () => {
     signInWithEmailAndPassword(auth, email, password)

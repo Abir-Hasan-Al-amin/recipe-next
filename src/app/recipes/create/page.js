@@ -16,7 +16,7 @@ export default function CreateRecipe() {
   const [file, setFile] = useState(null);
   const [user, loading] = useAuthState(auth);
   const router = useRouter();
-
+  // CheckBox Data storing
   const handleBox = (e) => {
     const { value, checked } = e.target;
     if (checked) {
@@ -25,11 +25,14 @@ export default function CreateRecipe() {
       setCheckValue((prev) => prev.filter((un) => un !== value));
     }
   };
+  // Checking if the user is logged in or not
   useEffect(() => {
     if (!loading && !user) {
       router.push("/signin");
     }
   }, [user, router]);
+
+  // creating recipe, storing data in firestore , storage and checking values
   const handleCreateRecipe = async () => {
     if (title === "" || checkValue.length === 0 || instructions === "") {
       alert("Missing Info");
@@ -44,6 +47,7 @@ export default function CreateRecipe() {
           title: title,
           ingredients: checkValue,
           instructions: instructions,
+            // default image link if no file is selected
           imageUrl:
             "https://firebasestorage.googleapis.com/v0/b/recipeapp-nextjs-assigentment.appspot.com/o/users%2Fdefault%2Fhd-recipes-mobile-image-750x352px.webp?alt=media&token=f6caccc2-2c7a-47e5-8efe-887f8bedd2f9",
         });
